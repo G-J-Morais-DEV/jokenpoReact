@@ -1,35 +1,41 @@
+import { useState } from 'react';
+
+//css
 import './StartScreen.css'
 
-// imgs
-import Jokenpo1 from '../../assets/jokenpo1.png'
-import Jokenpo2 from '../../assets/jokenpo2.png'
-import Jokenpo3 from '../../assets/jokenpo3.png'
+//components
+import ImageSlider from './ImageSlider';
+
 
 const StartScreen = () => {
-  return (
-    <div className="gameStart">
-        <h1>Jokenpo</h1>
-        <button>Novo Jogo</button>
-        <div className="containerGame">
-            <div className="playerOneBox">
-                <div className="carouselChoices">
-                    <img src={Jokenpo1} alt="paper" />
-                    <img src={Jokenpo2} alt="scissors" />
-                    <img src={Jokenpo3} alt="rock" />
+
+    const [choice, setChoice] = useState(0)
+
+    const handlePlayerButton = (e) => {
+
+        console.log(e)
+
+        var randomChoice = Math.floor((Math.random() * 3) + 1);
+        setChoice(randomChoice)
+    }
+
+
+    return (
+        <div className="gameStart">
+            <h1>Jokenpo</h1>
+            <button>Novo Jogo</button>
+            <div className="containerGame">
+                <div className="playerOneBox" data-box="1">
+                        <ImageSlider choice={choice}/>                    
+                    <button className='buttonPlayer' data-player="1" onClick={handlePlayerButton}>Player 1</button>
                 </div>
-                <button className='buttonPlayer'>Player 1</button>
-            </div>
-            <div className="playerTwoBox">
-                <div className="carouselChoices">
-                    <img src={Jokenpo1} alt="paper" />
-                    <img src={Jokenpo2} alt="scissors" />
-                    <img src={Jokenpo3} alt="rock" />
+                <div className="playerTwoBox">
+                        <ImageSlider choice={choice}/>
+                    <button className='buttonPlayer' data-player="2" onClick={handlePlayerButton}>Player 2</button>
                 </div>
-                <button className='buttonPlayer'>Player 2</button>
             </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default StartScreen
